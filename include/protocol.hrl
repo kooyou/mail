@@ -1,0 +1,2 @@
+-define(PT_HEAD_LEN,2).
+-define(PT_CMD_LEN,2).
