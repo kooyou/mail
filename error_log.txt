@@ -1,0 +1,8 @@
+#debug2013-4-8 15:11:8[server:29]server starting!
+
+#debug2013-4-8 15:11:8[server:31]server running!
+
+#debug2013-4-8 15:14:17[db_manager:72]opened db!
+
+#debug2013-4-8 15:14:17[db_manager:24]db_manager is runing
+
