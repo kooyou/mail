@@ -3,7 +3,8 @@
 		'src/*',
 		'src/server/*',
 		'src/client/*',
-		'src/util/*'
+		'src/client/protocol/*',
+		'src/lib/*'
 	]
 	,[
 		debug_info
