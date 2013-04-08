@@ -81,7 +81,7 @@ start() ->
 %循环等待用户命令
 wait_for_cmd(UserRecord,Pid) ->
     CmdStr = io:get_line("chat>"),
-    {Cmd,Data} = analysis_cmd(CmdStr),
+    {Cmd,_Data} = analysis_cmd(CmdStr),
     case Cmd of
         "quit" -> 
             quit(UserRecord,Pid);
@@ -186,7 +186,7 @@ login(UserId,Psw) ->
                             %登录成功，向父进程发送登录成功消息
                             UserRecordNew = UserRecord#user{name=UserName,socket=Socket},
                             %连接成功，进入消息循环
-                            Pid = spawn(fun() -> loop(Socket,UserRecordNew,true) end),
+                            Pid = spawn(fun() -> loop(UserRecordNew) end),
                             gen_tcp:controlling_process(Socket,Pid),
                             %登录成功
                             io:format("login success!~n"),
@@ -209,35 +209,57 @@ login(UserId,Psw) ->
 
 end. %end case
 
-mail(UserRecord,Pid) ->
+mail(UserRecord,_Pid) ->
     TemName = io:get_line("RevName:"),
     TemTitle = io:get_line("title:"),
     TemContent = io:get_line("content:"),
     RevName = string:strip(TemName,both,$\n),
     Title = string:strip(TemTitle,both,$\n),
     Content = string:strip(TemContent,both,$\n),
-    Data = [1,UserRecord#user.name,RevName,Title,Content],
-    case write_pt:write(10201,?CMD_10201,Data) of
-        {ok,Bin} ->
-            gen_tcp:send(UserRecord#user.socket,Bin);
-        {error,no_match} ->
-            ?DEBUG("failed to send mail!",[])
-    end,
+    Data = [2,UserRecord#user.name,RevName,Title,Content],
+    Bin = write_pt_c:write(10201,?CMD_10201,Data),
+    gen_tcp:send(UserRecord#user.socket,Bin).
 
-    void.
 
 %循环接收消息
-loop(Socket,UserRecord,Is_auth) ->
-    receive
-        {tcp,Socket,Bin} ->
-            {Cmdcode,MsgLen} = c_protocol_pro:get_protocol_cmd(Bin),
-            RevData = c_protocol_pro:cmdcode_match(Cmdcode,MsgLen,Bin,true),
-%            msg_handler(Cmdcode,MsgLen,RevData,UserRecord),
-            
-            loop(Socket,UserRecord,Is_auth);
-        stop -> void;
-        Other ->
-            io:format("client rev error data:~p!~n",[Other]),
-            loop(Socket,UserRecord,Is_auth)
+loop(UserRecord) ->
+    case gen_tcp:recv(UserRecord#user.socket,?PT_HEAD_LEN) of
+        {ok,Bin} ->
+            <<MsgLen:16>> = Bin,
+            case gen_tcp:recv(UserRecord#user.socket,MsgLen-2) of
+                {ok,RevBin} ->
+                    case read_pt_c:read(<<Bin/binary,RevBin/binary>>) of
+                        {ok,[_MsgLen|[Cmdcode|RestL]]} ->
+                            %分发任务
+                            dispatcher(Cmdcode,RestL,UserRecord);
+                        {error,no_match} ->
+                            ?DEBUG("error no match",[])
+                    end;
+                {error,closed} ->
+                    void
+            end;
+        {error,closed} ->
+            void
+    end,
+    loop(UserRecord).
+
+%对接收的信息进行分发处理
+dispatcher(Cmdcode,DataList,_UserRecord) ->
+    case Cmdcode of
+        10201 ->
+            rev_mail(DataList);
+        _Other ->
+            ?DEBUG("no match",[])
     end.
 
+%对收到的邮件进行处理
+rev_mail(DataList) ->
+    [Type,Sname,_Uname,Title,Content] = DataList,
+    case Type of
+        1 -> io:format("系统邮件: ~n");
+        2 -> io:format("私人邮件: ~n");
+        _Other -> void
+    end,
+    io:format("发送人：~p~n",[Sname]),
+    io:format("标题：~p~n",[Title]),
+    io:format("内容：~p~n",[Content]).

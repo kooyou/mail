@@ -9,7 +9,9 @@
 -module(util).
 -export([
     log/5,
-    is_legal/4]).
+    is_legal/4,
+    unixtime/0,
+    for/3]).
 %%=========================================================================
 %% 接口函数
 %%=========================================================================
@@ -42,3 +44,17 @@ is_legal(Name,NLen,Psw,PLen) ->
         Name_Len > NLen -> false;
         true -> true
     end.
+
+
+%% 取得当前的unix时间戳
+unixtime() ->
+    {M, S, _} = erlang:now(),
+    M * 1000000 + S.
+
+
+%% for循环
+for(Max, Max, F) ->
+    F(Max);
+for(I, Max, F)   ->
+    F(I),
+    for(I+1, Max, F).

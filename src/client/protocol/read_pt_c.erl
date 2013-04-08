@@ -63,5 +63,6 @@ routing(Cmdcode) ->
     case Cmdcode of
         10001 -> [int16,int32,string];    %登录
         10101 -> [int16,int32];   %注册
+        10201 -> [int16,string,string,string,string]; %接收邮件
         Other -> [{error,no_match}]
     end.

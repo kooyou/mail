@@ -13,7 +13,7 @@
 
 -define(CMD_10101,[int16,int32]).
 -define(CMD_10001,[int16,int32,string]).
--define(CMD_10201,[int32,int16,int16,int32,string,int32,string,string]).
+-define(CMD_10201,[array,{int32,int16,int16,int32,string,int32,string,string}]).
 -record(user,{
     id,
     name,
@@ -97,7 +97,7 @@ login_handle(User,Data) ->
     [UserId,StrPsw] = Data,
     NewUser_0 = User#user{id=UserId,psw=StrPsw},
     case db_manager:read_ets(id,UserId) of
-        {[]} -> void;
+        [{}] -> void;
         _Other -> ?DEBUG("User has online!",[])
     end,
     SqlStr = io_lib:format("select name from user where id=~p and psw='~s'",[UserId,StrPsw]),
@@ -108,7 +108,20 @@ login_handle(User,Data) ->
             NewUser_1 = NewUser_0#user{name=Name},
             BackData = [?SUCCEED,UserId,Name],
             ?DEBUG("User(~p ~s) login",[UserId,Name]),
-            db_manager:write_ets(UserId,Name,User#user.sock);
+            db_manager:write_ets(UserId,Name,User#user.sock),
+
+            %查看邮件
+            %未读邮件
+            RevMailSql = io_lib:format("select * from mail where uid=~p and state = 2",[UserId]),
+            RevMailList = db_manager:read(RevMailSql),
+            lists:foreach(fun([_,Type,_,Timestamp,Sname,_,Title,Content]) ->
+                        io:format("信件类型:~p~n时间:~p~n发件人名字:~p~n信件标题:~p~n信件正文:~p~n",[Type,Timestamp,Sname,Title,Content])
+                          end,
+                          RevMailList);
+
+            %已发送
+            %SendMailSql = io_libA:format("select * from mail where sname='~s'",[Name]),
+            %SendMailList = db_manager:read(SendMailSql);
         [] ->
             NewUser_1 = NewUser_0,
             BackData = [?FALSE,0,""],
@@ -125,19 +138,38 @@ mail_handle(User,Data,Bin) ->
         2 ->
             %检查用户是否在线
             case db_manager:read_ets(name,Uname) of
-                {[]} -> 
+                [] -> 
+                    %获取id
+                    SqlStr = io_lib:format("select id from user where name='~s'",[Uname]),
+                    case db_manager:read(SqlStr) of
+                        [[Id]] -> void;
+                        Other -> 
+                            ?DEBUG("~p",[Other]),
+                            Id = 0
+                    end,
                     Is_read = 2,
                     void;
-                {[Id,_,Socket]} -> 
+                [{Id,_,Socket}] -> 
                     Is_read = 1,
                     sendto(Socket,Bin),
-                    void
+                    void;
+                Other -> 
+                    Id = 0,
+                    Is_read = 1,
+                    ?DEBUG("~p",[Other])
             end,
-            %写入数据库
-            MysqlData = [0,2,Is_read,Time,Sname,Id,Title,Content],
-            write_pt:write(10201,?CMD_10201,MysqlData),
-            AddMailSql = io_lib:format("insert into mail values(~p,~p,~p,~p,'~s','~s','~s','~s')",[0,2,Is_read,Time,Sname,Id,Title,Content]),
-            db_manager:update(AddMailSql)
+            if
+                Id > 0 ->
+                    Time = util:unixtime(),
+                    %写入数据库
+                    MailNum = 1,
+                    MysqlData = [MailNum,0,2,Is_read,Time,Sname,Id,Title,Content],
+                    write_pt:write(10201,?CMD_10201,MysqlData),
+                    AddMailSql = io_lib:format("insert into mail values(~p,~p,~p,~p,'~s',~p,'~s','~s')",
+                        [0,2,Is_read,Time,Sname,Id,Title,Content]),
+                    db_manager:update(AddMailSql);
+                true -> void
+            end
     end,
     void.
 

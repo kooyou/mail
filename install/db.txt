@@ -11,3 +11,10 @@ CREATE TABLE `mail` (
   KEY `sname` (`sname`),
   KEY `uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='信件信息'
+
+CREATE TABLE user(
+id int NOT NULL AUTO_INCREMENT,
+name char(20) NOT NULL,
+psw char(20) NOT NULL,
+PRIMARY KEY(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8

@@ -7,7 +7,7 @@
 %%%------------------------------------
 
 -module(db_manager).
--export([start_link/0,read/1,update/1,read_ets/1,write_ets/3]).
+-export([start_link/0,read/1,update/1,read_ets/2,write_ets/3]).
 -export([init/1,handle_call/3,handle_cast/2,terminate/2,handle_info/2,code_change/3]).
 -behaviour(gen_server).
 
@@ -108,28 +108,28 @@ find_id_f_name(TabId,UserName,Cmd,Key1) ->
     case Cmd of
         first -> 
             case ets:first(TabId) of
-                '$end_of_table' -> error;
+                '$end_of_table' -> [];
                 Value -> 
                     case ets:lookup(TabId,Value) of
                         [{Id,Name,Socket}] -> 
                            case string:equal(Name,UserName) of
-                              true -> {[Id,Name,Socket]};
+                               true -> [{Id,Name,Socket}];
                               false -> find_id_f_name(TabId,UserName,next,Value)
                             end;
-                        [] -> error
+                        [] -> []
                     end
             end;
         next -> 
             case ets:next(TabId,Key1) of
-                '$end_of_table' -> error;
+                '$end_of_table' -> [];
                 Value ->
                     case ets:lookup(TabId,Value) of
                         [{Id,Name,Socket}] -> 
                             case string:equal(Name,UserName) of
-                                true -> {[Id,Name,Socket]};
+                                true -> [{Id,Name,Socket}];
                                 false -> find_id_f_name(TabId,UserName,next,Value)
                             end;
-                        [] -> error
+                        [] -> []
                     end
             end
     end.
