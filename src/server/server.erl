@@ -9,7 +9,7 @@
 -module(server).
 -behaviour(gen_server).
 -include("debug.hrl").
--export([start/0]).
+-export([start_link/0]).
 -export([init/1,handle_call/3,handle_cast/2,handle_info/2,terminate/2,code_change/3]).
 
 %%tcp_server监听参数
@@ -25,12 +25,15 @@
 %% 回调函数
 %%=========================================================================
 
-start() ->
-    gen_server:start_link({local,?MODULE},?MODULE,[],[]).
+start_link() ->
+    ?DEBUG("server starting!",[]),
+    gen_server:start_link({local,?MODULE},?MODULE,[],[]),
+    ?DEBUG("server running!",[]),
+    {ok,self()}.
 
 init([]) ->
     process_flag(trap_exit,true),
-    case get_tcp:listen(?TCP_PORT,?TCP_OPTIONS) of
+    case gen_tcp:listen(?TCP_PORT,?TCP_OPTIONS) of
         {ok,LSock} -> 
             spawn_link(fun() -> par_connect(LSock) end);
         {error,Reason} ->
@@ -62,6 +65,6 @@ code_change(_OldVsn,State,_Extra) ->
 %并行连接
 par_connect(ListenSock) ->
     {ok,Sock} = gen_tcp:accept(ListenSock),
-    {ok,Pid} = spawn(fun() -> connector:start(Sock) end),
+    Pid = spawn(fun() -> connector:start(Sock) end),
     gen_tcp:controlling_process(Sock,Pid),
     par_connect(ListenSock).
