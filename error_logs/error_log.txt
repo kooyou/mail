@@ -1,0 +1,348 @@
+#debug2013-4-8 15:15:40[db_manager:72]opened db!
+
+#debug2013-4-8 15:15:40[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:15:40[server:29]server starting!
+
+#debug2013-4-8 15:15:40[server:31]server running!
+
+#debug2013-4-8 15:15:52[db_manager:72]opened db!
+
+#debug2013-4-8 15:15:52[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:27:24[db_manager:72]opened db!
+
+#debug2013-4-8 15:27:24[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:27:24[server:29]server starting!
+
+#debug2013-4-8 15:27:24[server:31]server running!
+
+#debug2013-4-8 15:27:35[db_manager:72]opened db!
+
+#debug2013-4-8 15:27:35[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:30:46[db_manager:72]opened db!
+
+#debug2013-4-8 15:30:46[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:30:46[server:29]server starting!
+
+#debug2013-4-8 15:30:46[server:31]server running!
+
+#debug2013-4-8 15:32:59[db_manager:72]opened db!
+
+#debug2013-4-8 15:32:59[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:32:59[server:29]server starting!
+
+#debug2013-4-8 15:32:59[server:31]server running!
+
+#debug2013-4-8 15:34:1[db_manager:72]opened db!
+
+#debug2013-4-8 15:34:1[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:34:1[server:29]server starting!
+
+#debug2013-4-8 15:34:1[server:31]server running!
+
+#debug2013-4-8 15:34:9[db_manager:72]opened db!
+
+#debug2013-4-8 15:34:9[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:34:37[db_manager:72]opened db!
+
+#debug2013-4-8 15:34:37[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:34:37[server:29]server starting!
+
+#debug2013-4-8 15:34:37[server:31]server running!
+
+#debug2013-4-8 15:38:41[db_manager:72]opened db!
+
+#debug2013-4-8 15:38:41[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:38:41[server:29]server starting!
+
+#debug2013-4-8 15:38:41[server:31]server running!
+
+#debug2013-4-8 15:38:50[connector:46]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 15:42:34[db_manager:72]opened db!
+
+#debug2013-4-8 15:42:34[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:42:34[server:29]server starting!
+
+#debug2013-4-8 15:42:34[server:31]server running!
+
+#debug2013-4-8 15:45:10[db_manager:72]opened db!
+
+#debug2013-4-8 15:45:10[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:45:10[server:29]server starting!
+
+#debug2013-4-8 15:45:10[server:31]server running!
+
+#debug2013-4-8 15:46:21[db_manager:72]opened db!
+
+#debug2013-4-8 15:46:21[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:46:21[server:29]server starting!
+
+#debug2013-4-8 15:46:21[server:31]server running!
+
+#debug2013-4-8 15:47:6[db_manager:72]opened db!
+
+#debug2013-4-8 15:47:6[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:47:6[server:29]server starting!
+
+#debug2013-4-8 15:47:6[server:31]server running!
+
+#debug2013-4-8 15:47:14[connector:46]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 15:49:22[db_manager:72]opened db!
+
+#debug2013-4-8 15:49:22[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:49:22[server:29]server starting!
+
+#debug2013-4-8 15:49:22[server:31]server running!
+
+#debug2013-4-8 15:54:59[db_manager:72]opened db!
+
+#debug2013-4-8 15:54:59[db_manager:24]db_manager is runing
+
+#debug2013-4-8 15:54:59[server:29]server starting!
+
+#debug2013-4-8 15:54:59[server:31]server running!
+
+#debug2013-4-8 15:55:21[client:145]no_match
+
+#debug2013-4-8 16:2:41[connector:46]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 16:2:59[db_manager:72]opened db!
+
+#debug2013-4-8 16:2:59[db_manager:24]db_manager is runing
+
+#debug2013-4-8 16:2:59[server:29]server starting!
+
+#debug2013-4-8 16:2:59[server:31]server running!
+
+#debug2013-4-8 16:3:9[client:133][10,10101,0,0]
+
+
+#debug2013-4-8 16:3:9[connector:46]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 16:6:28[db_manager:72]opened db!
+
+#debug2013-4-8 16:6:28[db_manager:24]db_manager is runing
+
+#debug2013-4-8 16:6:28[server:29]server starting!
+
+#debug2013-4-8 16:6:28[server:31]server running!
+
+#debug2013-4-8 16:6:39[client:133][1,3]
+
+
+#debug2013-4-8 16:6:39[client:138]succeed to register,you are userid is 3
+
+
+#debug2013-4-8 16:44:4[connector:46]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 16:55:3[db_manager:73]opened db!
+
+#debug2013-4-8 16:55:3[db_manager:24]db_manager is runing
+
+#debug2013-4-8 16:55:3[server:29]server starting!
+
+#debug2013-4-8 16:55:3[server:31]server running!
+
+#debug2013-4-8 16:55:16[connector:48]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 16:57:29[db_manager:73]opened db!
+
+#debug2013-4-8 16:57:29[db_manager:24]db_manager is runing
+
+#debug2013-4-8 16:57:29[server:29]server starting!
+
+#debug2013-4-8 16:57:29[server:31]server running!
+
+#debug2013-4-8 16:57:41[connector:48]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 17:1:39[db_manager:73]opened db!
+
+#debug2013-4-8 17:1:39[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:1:39[server:29]server starting!
+
+#debug2013-4-8 17:1:39[server:31]server running!
+
+#debug2013-4-8 17:2:10[client:76]bad command:"1"
+
+
+#debug2013-4-8 17:8:57[db_manager:80]opened db!
+
+#debug2013-4-8 17:8:57[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:8:57[server:29]server starting!
+
+#debug2013-4-8 17:8:57[server:31]server running!
+
+#debug2013-4-8 17:9:53[db_manager:80]opened db!
+
+#debug2013-4-8 17:9:53[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:9:53[server:29]server starting!
+
+#debug2013-4-8 17:9:53[server:31]server running!
+
+#debug2013-4-8 17:10:43[db_manager:80]opened db!
+
+#debug2013-4-8 17:10:43[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:10:43[server:29]server starting!
+
+#debug2013-4-8 17:10:43[server:31]server running!
+
+#debug2013-4-8 17:10:52[db_manager:80]opened db!
+
+#debug2013-4-8 17:10:52[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:14:2[db_manager:80]opened db!
+
+#debug2013-4-8 17:14:2[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:14:2[server:29]server starting!
+
+#debug2013-4-8 17:14:2[server:31]server running!
+
+#debug2013-4-8 17:14:18[connector:100]User has online!
+
+#debug2013-4-8 17:14:18[connector:107]User(1 i) login
+
+#debug2013-4-8 17:19:52[db_manager:80]opened db!
+
+#debug2013-4-8 17:19:52[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:19:52[server:29]server starting!
+
+#debug2013-4-8 17:19:52[server:31]server running!
+
+#debug2013-4-8 17:20:1[connector:100]User has online!
+
+#debug2013-4-8 17:20:1[connector:111]User login with wrong psw!
+
+#debug2013-4-8 17:20:1[connector:48]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 17:20:26[db_manager:80]opened db!
+
+#debug2013-4-8 17:20:26[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:20:26[server:29]server starting!
+
+#debug2013-4-8 17:20:26[server:31]server running!
+
+#debug2013-4-8 17:20:39[connector:100]User has online!
+
+#debug2013-4-8 17:20:39[connector:107]User(1 i) login
+
+#debug2013-4-8 17:21:38[db_manager:80]opened db!
+
+#debug2013-4-8 17:21:38[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:21:38[server:29]server starting!
+
+#debug2013-4-8 17:21:38[server:31]server running!
+
+#debug2013-4-8 17:21:47[connector:100]User has online!
+
+#debug2013-4-8 17:21:47[connector:108]User(1 i) login
+
+#debug2013-4-8 17:21:47[connector:48]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 17:23:42[db_manager:80]opened db!
+
+#debug2013-4-8 17:23:42[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:23:42[server:29]server starting!
+
+#debug2013-4-8 17:23:42[server:31]server running!
+
+#debug2013-4-8 17:23:50[connector:100]User has online!
+
+#debug2013-4-8 17:23:50[connector:108]User(1 i) login
+
+#debug2013-4-8 17:31:54[connector:48]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 17:32:20[db_manager:80]opened db!
+
+#debug2013-4-8 17:32:20[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:32:20[server:29]server starting!
+
+#debug2013-4-8 17:32:20[server:31]server running!
+
+#debug2013-4-8 17:32:27[connector:100]User has online!
+
+#debug2013-4-8 17:32:27[connector:108]User(1 i) login
+
+#debug2013-4-8 17:32:27[connector:48]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 17:33:9[db_manager:80]opened db!
+
+#debug2013-4-8 17:33:9[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:33:9[server:29]server starting!
+
+#debug2013-4-8 17:33:9[server:31]server running!
+
+#debug2013-4-8 17:33:19[connector:100]User has online!
+
+#debug2013-4-8 17:33:19[connector:108]User(1 i) login
+
+#debug2013-4-8 17:33:21[connector:48]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-8 17:43:55[db_manager:87]opened db!
+
+#debug2013-4-8 17:43:55[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:43:55[server:29]server starting!
+
+#debug2013-4-8 17:43:55[server:31]server running!
+
+#debug2013-4-8 17:44:7[connector:96]User has online!
+
+#debug2013-4-8 17:44:7[connector:105]User(1 i) login
+
+#debug2013-4-8 17:44:21[client:136]Succeed to register,you are userid is 4
+
+#debug2013-4-8 17:45:41[db_manager:87]opened db!
+
+#debug2013-4-8 17:45:41[db_manager:24]db_manager is runing
+
+#debug2013-4-8 17:45:41[server:29]server starting!
+
+#debug2013-4-8 17:45:41[server:31]server running!
+
+#debug2013-4-8 17:45:52[client:138]failed to register!
+
+#debug2013-4-8 17:47:56[connector:48]client error closed,port:#Port<0.951>
+
+
+#debug2013-4-8 17:47:56[connector:48]client error closed,port:#Port<0.941>
+
+
