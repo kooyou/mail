@@ -1,0 +1,13 @@
+CREATE TABLE `mail` (
+  `id` int(11) NOT NULL auto_increment COMMENT '信件id',
+  `type` tinyint(1) unsigned NOT NULL COMMENT '类型（1系统/2私人）',
+  `state` tinyint(1) unsigned NOT NULL COMMENT '状态（1已读/2未读）',
+  `timestamp` int(11) NOT NULL COMMENT 'Unix时间戳',
+  `sname` varchar(20) NOT NULL COMMENT '发件人名字',
+  `uid` int(11) NOT NULL COMMENT '收件人id',
+  `title` varchar(50) NOT NULL COMMENT '信件标题',
+  `content` varchar(500) NOT NULL COMMENT '信件正文',
+  PRIMARY KEY  (`id`),
+  KEY `sname` (`sname`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='信件信息'
