@@ -8,7 +8,8 @@
 
 -module(util).
 -export([
-    log/5]).
+    log/5,
+    is_legal/4]).
 %%=========================================================================
 %% 接口函数
 %%=========================================================================
@@ -20,10 +21,24 @@
 
 %%日记记录函数
 log(T,F,A,Mod,Line) ->
-    {ok,F1} = file:open("logs/error_log.txt",[write,append]),
+    case file:open("../error_logs/error_log.txt",[write,append]) of
+       {ok,F1} -> void;
+        _Other ->
+            {ok,F1} = file:open("error_logs/error_log.txt",[write,append])
+    end,
     Format = list_to_binary("#" ++ T ++ "~s[~w:~w]" ++ F ++ "\r\n~n"),
-    {{Y,M,D},{H,I,S}} = erlang:localtimes(),
-    Date = list_to_binary([integer_to_list(Y),"-",interger_to_list(M),"-",
-            integer_to_list(D)," ",integer_to_list(H),":",integer_to_list(I),":",integer_to_liste(S)]),
+    {{Y,M,D},{H,I,S}} = erlang:localtime(),
+    Date = list_to_binary([integer_to_list(Y),"-",integer_to_list(M),"-",
+            integer_to_list(D)," ",integer_to_list(H),":",integer_to_list(I),":",integer_to_list(S)]),
     io:format(F1,unicode:characters_to_list(Format),[Date,Mod,Line] ++ A),
-    file:close(F1).
+    file:close(F1),
+
+    %%%add to io
+    io:format(Format,[Date,Mod,Line] ++ A).
+
+is_legal(Name,NLen,Psw,PLen) ->
+     Name_Len = string:len(Name),
+    if
+        Name_Len > NLen -> false;
+        true -> true
+    end.
