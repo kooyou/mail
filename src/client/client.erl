@@ -36,6 +36,9 @@
 -define(CMD_10101,[string,string]).        %注册
 -define(CMD_10001,[int32,string]).         %登录
 -define(CMD_10201,[int16,string,string,string,string]).%发邮件
+-define(CMD_10202,[int32,int16]).%查看邮件
+-define(CMD_10203,[int32,int32]).%删除指定邮件
+-define(CMD_10204,[int32,int32]).%查看指定邮件
 
 %建立连接
 connect() ->
@@ -81,12 +84,26 @@ start() ->
 %循环等待用户命令
 wait_for_cmd(UserRecord,Pid) ->
     CmdStr = io:get_line("chat>"),
-    {Cmd,_Data} = analysis_cmd(CmdStr),
+    {Cmd,RestStr} = analysis_cmd(CmdStr),
     case Cmd of
         "quit" -> 
             quit(UserRecord,Pid);
         "mail" ->
             mail(UserRecord,Pid),
+            wait_for_cmd(UserRecord,Pid);
+        "all" ->
+            all_mail(UserRecord,Pid),
+            wait_for_cmd(UserRecord,Pid);
+        "unread" ->
+            unread_mail(UserRecord,Pid),
+            wait_for_cmd(UserRecord,Pid);
+        "del" ->
+            %{MailId,_} = string:to_integer(RestStr),
+            del_mail(UserRecord,Pid,RestStr),
+            wait_for_cmd(UserRecord,Pid);
+        "browse" ->
+            {MailId,_} = string:to_integer(RestStr),
+            browse_mail(UserRecord,Pid,MailId),
             wait_for_cmd(UserRecord,Pid);
         _Other -> io:format("bad command!~n"),
             wait_for_cmd(UserRecord,Pid)
@@ -116,6 +133,10 @@ analysis_cmd(String) ->
         true -> { string:sub_string(String,1,string:len(String)-1),""}
     end.
 
+
+
+
+%------------------------发送消息处理---------------------------
 
 %注册
 register_c(UserName,Psw) ->
@@ -209,6 +230,7 @@ login(UserId,Psw) ->
 
 end. %end case
 
+%发邮件
 mail(UserRecord,_Pid) ->
     TemName = io:get_line("RevName:"),
     TemTitle = io:get_line("title:"),
@@ -220,6 +242,47 @@ mail(UserRecord,_Pid) ->
     Bin = write_pt_c:write(10201,?CMD_10201,Data),
     gen_tcp:send(UserRecord#user.socket,Bin).
 
+%查询所有邮件
+all_mail(UserRecord,_Pid) ->
+    SendData = [UserRecord#user.id,1],
+    Bin = write_pt_c:write(10202,?CMD_10202,SendData),
+    gen_tcp:send(UserRecord#user.socket,Bin).
+
+%查询未读邮件
+unread_mail(UserRecord,_Pid) ->
+    SendData = [UserRecord#user.id,2],
+    Bin = write_pt_c:write(10202,?CMD_10202,SendData),
+    gen_tcp:send(UserRecord#user.socket,Bin).
+
+%删除指定邮件
+del_mail(UserRecord,_Pid,DelStr) ->
+    IntStrList = string:tokens(DelStr," "),
+    IntList = lists:map(fun(X) ->
+                {Int,_} = string:to_integer(X),
+                Int end, IntStrList),
+    %io:format("asdfasdf~p~n",IntList),
+    lists:foreach(fun(X) ->
+        SendData = [UserRecord#user.id,X],
+        Bin = write_pt_c:write(10203,?CMD_10203,SendData),
+        gen_tcp:send(UserRecord#user.socket,Bin)
+        end,
+        IntList).
+
+%查询指定邮件
+browse_mail(UserRecord,_Pid,MailId) ->
+    SendData = [UserRecord#user.id,MailId],
+    Bin = write_pt_c:write(10204,?CMD_10204,SendData),
+    gen_tcp:send(UserRecord#user.socket,Bin).
+
+
+
+
+
+
+
+
+
+%-----------接收消息和处理--------------------
 
 %循环接收消息
 loop(UserRecord) ->
@@ -237,29 +300,95 @@ loop(UserRecord) ->
                     end;
                 {error,closed} ->
                     void
-            end;
+            end,
+            loop(UserRecord);
         {error,closed} ->
-            void
-    end,
-    loop(UserRecord).
+            void;
+        _Other ->
+            ?DEBUG("rev error!",[])
+        
+    end.
 
 %对接收的信息进行分发处理
 dispatcher(Cmdcode,DataList,_UserRecord) ->
     case Cmdcode of
         10201 ->
+            rev_send_mail(DataList);
+        10202 ->
             rev_mail(DataList);
+        10203 ->
+            rev_del_mail(DataList);
+        10204 ->
+            rev_browse_mail(DataList);
+        10205 ->
+            rev_new_mail(DataList);
         _Other ->
             ?DEBUG("no match",[])
     end.
 
+%发送邮件结果处理
+rev_send_mail(DataList) ->
+    [Result] = DataList,
+    case Result of
+        ?SUCCEED ->
+            io:format("Succeed to send mail!~n");
+        ?FALSE ->
+            io:format("Failed to send mail!~n")
+    end.
+
 %对收到的邮件进行处理
-rev_mail(DataList) ->
-    [Type,Sname,_Uname,Title,Content] = DataList,
+rev_new_mail(DataList) ->
+    io:format("You have a new mail:~n"),
+    [Id,Type,State,Times,Sname,_Uid,Title] =DataList,
     case Type of
-        1 -> io:format("系统邮件: ~n");
-        2 -> io:format("私人邮件: ~n");
+        1 -> io:format("system mail:~n");
+        2 -> io:format("private mail:~n");
         _Other -> void
     end,
-    io:format("发送人：~p~n",[Sname]),
-    io:format("标题：~p~n",[Title]),
-    io:format("内容：~p~n",[Content]).
+    MM = Times div 1000000,
+    SS = Times - MM*1000000,
+    {{Y,M,D},{H,N,S}} = calendar:now_to_local_time({MM,SS,0}),
+    io:format("Mail Id:~p  Time:~p-~p-~p ~p:~p:~p  From:~s   Title:~s~n",[Id,Y,M,D,H,N,S,Sname,Title]).
+
+%对查询邮件进行处理
+rev_mail(DataList) ->
+    io:format("You have a new mail:~n"),
+    lists:foreach(fun(List) ->
+    [Id,Type,State,Times,Sname,_Uid,Title] =List,
+    case Type of
+        1 -> io:format("System mail:~n");
+        2 -> io:format("Private mail:~n");
+        _Other -> void
+    end,
+    %Time = calendar:seconds_to_time(Times),
+    MM = Times div 1000000,
+    SS = Times - MM*1000000,
+    {{Y,M,D},{H,N,S}} = calendar:now_to_local_time({MM,SS,0}),
+    io:format("Mail Id:~p  Time:~p-~p-~p ~p:~p:~p  From:~s   Title:~s~n",[Id,Y,M,D,H,N,S,Sname,Title])
+    end,
+    DataList).
+
+%接收删除指定邮件应答
+rev_del_mail(DataList) ->
+    [Result] = DataList,
+    case Result of
+        1 ->
+            io:format("succeed to del mail!~n");
+        2 ->
+            io:format("failed to del mail!~n")
+    end,
+    void.
+
+%接收指定浏览的邮件
+rev_browse_mail(DataList) ->
+    [Id,Type,State,Timestamp,Sname,Uid,Title,Content] = DataList,
+    case Type of
+        1 -> io:format("system mail:~n");
+        2 -> io:format("private mail:~n");
+        _Other -> void
+    end,
+    MM = Timestamp div 1000000,
+    SS = Timestamp - MM*1000000,
+    {{Y,M,D},{H,N,S}} = calendar:now_to_local_time({MM,SS,0}),
+    io:format("Mail Id:~p  Time:~p-~p-~p ~p:~p:~p  From:~s   Title:~s  Content:~p~n",[Id,Y,M,D,H,N,S,Sname,Title,Content]).
+

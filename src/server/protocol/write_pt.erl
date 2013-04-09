@@ -25,10 +25,10 @@ write_each([Type|LastL],Data,BinList,MsgLen) ->
             NewBinList = BinList ++ [<<StrLen:16,(list_to_binary(String))/binary>>],
             write_each(LastL,RestData,NewBinList,MsgLen+2+StrLen);
         {array,TypeList} ->
-            [N | RestData ] = Data,
+            [N | TempData ] = Data,
             io:format("array:N ~p,TypeList ~p~n",[N,TypeList]),
             TempBinList = BinList ++ [<<N:16>>],
-            {RestData,ResultBinList,Len} = writing_array(N,TypeList,Data,[],0),
+            {RestData,ResultBinList,Len} = writing_array(N,TypeList,TempData,[],0),
             NewBinList = TempBinList ++ ResultBinList,
             write_each(LastL,RestData,NewBinList,MsgLen+2+Len);
         Other ->
@@ -40,8 +40,8 @@ write_each([],Data,BinList,MsgLen) ->
     {Data,BinList,MsgLen}.
 
 
-writing_array(N,TypeList,Data,BinList,MsgLen) when N >0 ->
-    {RestData,ResultBinList,Len} = write_each(TypeList,Data,[],0),
+writing_array(N,TypeList,[Data|RestData],BinList,MsgLen) when N >0 ->
+    {_Rest,ResultBinList,Len} = write_each(TypeList,Data,[],0),
     NewBinList = ResultBinList ++ BinList,
     writing_array(N-1,TypeList,RestData,NewBinList,MsgLen+Len);
 

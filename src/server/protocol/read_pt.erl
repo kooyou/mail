@@ -64,5 +64,8 @@ routing(Cmdcode) ->
         10001 -> [int32,string];    %登录
         10101 -> [string,string];   %注册
         10201 -> [int16,string,string,string,string]; %发邮件
+        10202 -> [int32,int16]; %查询邮件
+        10203 -> [int32,int32]; %删除邮件
+        10204 -> [int32,int32]; %查看指定邮件
         Other -> [{error,no_match}]
     end.

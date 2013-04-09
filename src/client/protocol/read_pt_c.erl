@@ -1,14 +1,19 @@
 -module(read_pt_c).
 -export([read/1]).
+-include("debug.hrl").
 
 read(Bin) ->
     case Bin of
         <<MsgLen:16,Cmdcode:16,RestBin/binary>> -> 
             case read_each(routing(Cmdcode),RestBin,[]) of
                 {ok,<<>>,Term} -> {ok,[MsgLen,Cmdcode] ++ Term};
-                _Other -> {error,no_match}
+                _Other -> 
+                    ?DEBUG("no_match",[]),
+                    {error,no_match}
             end;
-        _Other -> {error,no_match}
+        _Other -> 
+            ?DEBUG("no_match",[]),
+            {error,no_match}
     end.
 
 
@@ -28,7 +33,9 @@ read_each([Head|LastL],Bin,Term) ->
             <<Num:16,LastBin/binary>> = Bin,
             case get_list([],LastBin,Num,TypeList) of
                 {NewList,RestBin} -> read_each(LastL,RestBin,Term ++ NewList);
-                error -> {error,no_match}
+                error -> 
+                    ?DEBUG("no_match",[]),
+                    {error,no_match}
             end;
         {error,no_match} -> io:format("read_pt:read:error on_match");
         Other -> io:format("other:~p~n",[Other])
@@ -49,6 +56,7 @@ get_list(AccList, Bin, N, TypeList) when N > 0 ->
             NewList = [Term | AccList],
             get_list(NewList, RestBin, N - 1, TypeList);
         _R1 ->
+            ?DEBUG("error",[]),
             error
     end;
 get_list(AccList, Bin, _, _) ->
@@ -63,6 +71,10 @@ routing(Cmdcode) ->
     case Cmdcode of
         10001 -> [int16,int32,string];    %登录
         10101 -> [int16,int32];   %注册
-        10201 -> [int16,string,string,string,string]; %接收邮件
-        Other -> [{error,no_match}]
+        10201 -> [int16]; %发送邮件应答
+        10202 -> [{array,[int32,int16,int16,int32,string,int32,string]}]; %查询邮件
+        10203 -> [int16];       %删除指定邮件
+        10204 -> [int32,int16,int16,int32,string,int32,string,string]; %查询指定邮件
+        10205 -> [int32,int16,int16,int32,string,int32,string];%接收邮件
+        _Other -> [{error,no_match}]
     end.

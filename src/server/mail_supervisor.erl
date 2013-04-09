@@ -39,5 +39,13 @@ init([]) ->
             permanent,
             brutal_kill,
             worker,
-            [server]}
+            [server]},
+        %计时器进程
+       {spec_mail_timer,
+            {timer_fsm,start_link,[]},
+            permanent,
+            brutal_kill,
+            worker,
+            [timer_fsm]}
+        
     ]}}.
