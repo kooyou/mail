@@ -138,6 +138,12 @@ login_handle(User,Data) ->
     %邮件提醒
     case Is_login of
         ?SUCCEED ->
+            Sql = io_lib:format("select * from mail where uid = ~p and state = 2",[UserId]),
+            UnreadList = db_manager:read(Sql),
+            lists:foreach(fun(Item) ->
+                new_mail(NewUser_1,Item,0)
+                end,
+                UnreadList),
             void;
         ?FALSE ->
             void
@@ -175,8 +181,8 @@ new_mail(_User,Data,_Bin) ->
     [Id,Type,State,Timestamp,Sname,Uid,Title,_] = Data,
     %在线消息提醒
     case Type of
-        1 -> void;
-        2 ->
+        0 -> void;
+        _ ->
             %检查用户是否在线
             case db_manager:read_ets(id,Uid) of
                 [] -> %不在线

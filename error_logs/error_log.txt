@@ -1,0 +1,342 @@
+#debug2013-4-10 1:0:44[db_manager:94]opened db!
+
+#debug2013-4-10 1:0:44[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:0:44[server:26]server starting!
+
+#debug2013-4-10 1:0:44[server:28]server running!
+
+#debug2013-4-10 1:0:44[timer_fsm:26]starting [timer_fsm]...
+
+#debug2013-4-10 1:3:14[db_manager:94]opened db!
+
+#debug2013-4-10 1:3:14[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:3:14[server:26]server starting!
+
+#debug2013-4-10 1:3:14[server:28]server running!
+
+#debug2013-4-10 1:3:14[timer_fsm:26]starting [timer_fsm]...
+
+#debug2013-4-10 1:5:0[db_manager:94]opened db!
+
+#debug2013-4-10 1:5:0[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:5:0[server:26]server starting!
+
+#debug2013-4-10 1:5:0[server:28]server running!
+
+#debug2013-4-10 1:5:0[timer_fsm:26]starting [timer_fsm]...
+
+#debug2013-4-10 1:5:10[db_manager:94]opened db!
+
+#debug2013-4-10 1:5:10[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:6:33[db_manager:94]opened db!
+
+#debug2013-4-10 1:6:33[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:6:33[server:26]server starting!
+
+#debug2013-4-10 1:6:33[server:28]server running!
+
+#debug2013-4-10 1:6:33[timer_fsm:26]starting [timer_fsm]...
+
+#debug2013-4-10 1:9:11[db_manager:94]opened db!
+
+#debug2013-4-10 1:9:11[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:9:11[server:26]server starting!
+
+#debug2013-4-10 1:9:11[server:28]server running!
+
+#debug2013-4-10 1:9:11[timer_fsm:26]starting [timer_fsm]...
+
+#debug2013-4-10 1:9:41[connector:115]User has online!
+
+#debug2013-4-10 1:9:41[connector:125]User(1 hi) login
+
+#debug2013-4-10 1:14:55[server:26]server starting!
+
+#debug2013-4-10 1:14:55[server:28]server running!
+
+#debug2013-4-10 1:19:49[server:26]server starting!
+
+#debug2013-4-10 1:19:49[server:28]server running!
+
+#debug2013-4-10 1:20:4[server:26]server starting!
+
+#debug2013-4-10 1:20:4[server:44]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:20:4[server:28]server running!
+
+#debug2013-4-10 1:20:11[server:26]server starting!
+
+#debug2013-4-10 1:20:11[server:28]server running!
+
+#debug2013-4-10 1:20:30[server:26]server starting!
+
+#debug2013-4-10 1:20:30[server:28]server running!
+
+#debug2013-4-10 1:20:34[server:26]server starting!
+
+#debug2013-4-10 1:20:34[server:28]server running!
+
+#debug2013-4-10 1:20:34[server:26]server starting!
+
+#debug2013-4-10 1:20:34[server:28]server running!
+
+#debug2013-4-10 1:20:35[server:26]server starting!
+
+#debug2013-4-10 1:20:35[server:28]server running!
+
+#debug2013-4-10 1:20:35[server:26]server starting!
+
+#debug2013-4-10 1:20:35[server:28]server running!
+
+#debug2013-4-10 1:20:36[server:26]server starting!
+
+#debug2013-4-10 1:20:36[server:28]server running!
+
+#debug2013-4-10 1:21:14[server:26]server starting!
+
+#debug2013-4-10 1:21:14[server:28]server running!
+
+#debug2013-4-10 1:21:18[server:26]server starting!
+
+#debug2013-4-10 1:21:18[server:28]server running!
+
+#debug2013-4-10 1:23:45[server:26]server starting!
+
+#debug2013-4-10 1:23:45[server:28]server running!
+
+#debug2013-4-10 1:23:49[server:26]server starting!
+
+#debug2013-4-10 1:23:49[server:28]server running!
+
+#debug2013-4-10 1:24:56[server:26]server starting!
+
+#debug2013-4-10 1:24:56[server:29]server running!
+
+#debug2013-4-10 1:24:59[server:26]server starting!
+
+#debug2013-4-10 1:24:59[server:29]server running!
+
+#debug2013-4-10 1:27:2[server:26]server starting!
+
+#debug2013-4-10 1:27:2[server:45]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:27:2[server:29]server running!
+
+#debug2013-4-10 1:27:57[server:26]server starting!
+
+#debug2013-4-10 1:27:57[server:29]server running! <0.34.0>
+
+#debug2013-4-10 1:28:13[server:26]server starting!
+
+#debug2013-4-10 1:28:13[server:31]server failed to run {error,
+                                                        {already_started,
+                                                         <0.34.0>}}!
+
+#debug2013-4-10 1:28:37[server:26]server starting!
+
+#debug2013-4-10 1:28:37[server:31]server failed to run {error,
+                                                        {already_started,
+                                                         <0.34.0>}}!
+
+#debug2013-4-10 1:28:42[server:26]server starting!
+
+#debug2013-4-10 1:28:42[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:28:42[server:29]server running! <0.34.0>
+
+#debug2013-4-10 1:29:18[server:26]server starting!
+
+#debug2013-4-10 1:29:18[server:29]server running! <0.34.0>
+
+#debug2013-4-10 1:29:20[server:26]server starting!
+
+#debug2013-4-10 1:29:20[server:31]server failed to run {error,
+                                                        {already_started,
+                                                         <0.34.0>}}!
+
+#debug2013-4-10 1:29:27[server:26]server starting!
+
+#debug2013-4-10 1:29:27[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:29:27[server:29]server running! <0.34.0>
+
+#debug2013-4-10 1:29:28[server:26]server starting!
+
+#debug2013-4-10 1:29:28[server:31]server failed to run {error,
+                                                        {already_started,
+                                                         <0.34.0>}}!
+
+#debug2013-4-10 1:29:58[server:26]server starting!
+
+#debug2013-4-10 1:31:8[server:26]server starting!
+
+#debug2013-4-10 1:31:8[server:29]server running! <0.34.0>
+
+#debug2013-4-10 1:31:10[server:26]server starting!
+
+#debug2013-4-10 1:31:10[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:31:10[server:29]server running! <0.41.0>
+
+#debug2013-4-10 1:31:11[server:26]server starting!
+
+#debug2013-4-10 1:31:11[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:31:11[server:29]server running! <0.49.0>
+
+#debug2013-4-10 1:31:12[server:26]server starting!
+
+#debug2013-4-10 1:31:12[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:31:12[server:29]server running! <0.57.0>
+
+#debug2013-4-10 1:31:13[server:26]server starting!
+
+#debug2013-4-10 1:31:13[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:31:13[server:29]server running! <0.65.0>
+
+#debug2013-4-10 1:31:13[server:26]server starting!
+
+#debug2013-4-10 1:31:13[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:31:13[server:29]server running! <0.73.0>
+
+#debug2013-4-10 1:31:14[server:26]server starting!
+
+#debug2013-4-10 1:31:14[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:31:14[server:29]server running! <0.81.0>
+
+#debug2013-4-10 1:31:14[server:26]server starting!
+
+#debug2013-4-10 1:31:14[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:31:14[server:29]server running! <0.89.0>
+
+#debug2013-4-10 1:31:35[server:26]server starting!
+
+#debug2013-4-10 1:31:35[server:29]server running! <0.36.0>
+
+#debug2013-4-10 1:31:41[server:26]server starting!
+
+#debug2013-4-10 1:31:41[server:48]error to listen.Reason:eaddrinuse
+
+#debug2013-4-10 1:31:41[server:29]server running! <0.43.0>
+
+#debug2013-4-10 1:41:41[db_manager:94]opened db!
+
+#debug2013-4-10 1:41:41[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:41:41[server:26]server starting!
+
+#debug2013-4-10 1:41:41[server:29]server running! <0.61.0>
+
+#debug2013-4-10 1:42:31[db_manager:94]opened db!
+
+#debug2013-4-10 1:42:31[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:42:31[server:26]server starting!
+
+#debug2013-4-10 1:42:31[server:29]server running! <0.61.0>
+
+#debug2013-4-10 1:42:59[server:26]server starting!
+
+#debug2013-4-10 1:42:59[server:29]server running! <0.34.0>
+
+#debug2013-4-10 1:44:5[db_manager:94]opened db!
+
+#debug2013-4-10 1:44:5[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:44:5[server:26]server starting!
+
+#debug2013-4-10 1:44:5[server:29]server running! <0.61.0>
+
+#debug2013-4-10 1:44:5[timer_fsm:26]starting [timer_fsm]...
+
+#debug2013-4-10 1:45:3[db_manager:94]opened db!
+
+#debug2013-4-10 1:45:3[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:45:3[server:26]server starting!
+
+#debug2013-4-10 1:45:3[server:29]server running! <0.61.0>
+
+#debug2013-4-10 1:45:3[timer_fsm:26]starting [timer_fsm]...
+
+#debug2013-4-10 1:45:22[connector:115]User has online!
+
+#debug2013-4-10 1:45:22[connector:125]User(1 hi) login
+
+#debug2013-4-10 1:47:21[connector:115]User has online!
+
+#debug2013-4-10 1:47:21[connector:125]User(2 joe) login
+
+#debug2013-4-10 1:48:1[connector:53]client error closed,port:#Port<0.958>
+
+
+#debug2013-4-10 1:48:17[connector:115]User has online!
+
+#debug2013-4-10 1:48:17[connector:125]User(1 hi) login
+
+#debug2013-4-10 1:50:21[connector:53]client error closed,port:#Port<0.962>
+
+
+#debug2013-4-10 1:50:25[connector:53]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-10 1:50:43[connector:115]User has online!
+
+#debug2013-4-10 1:50:43[connector:125]User(2 joe) login
+
+#debug2013-4-10 1:51:15[connector:115]User has online!
+
+#debug2013-4-10 1:51:15[connector:125]User(1 hi) login
+
+#debug2013-4-10 1:52:25[client:80]bad command:"3"
+
+
+#debug2013-4-10 1:52:29[connector:115]User has online!
+
+#debug2013-4-10 1:52:29[connector:125]User(3 tom) login
+
+#debug2013-4-10 1:54:45[connector:53]client error closed,port:#Port<0.973>
+
+
+#debug2013-4-10 1:55:2[db_manager:94]opened db!
+
+#debug2013-4-10 1:55:2[db_manager:24]db_manager is runing
+
+#debug2013-4-10 1:55:2[server:26]server starting!
+
+#debug2013-4-10 1:55:2[server:29]server running! <0.61.0>
+
+#debug2013-4-10 1:55:2[timer_fsm:26]starting [timer_fsm]...
+
+#debug2013-4-10 1:55:11[connector:115]User has online!
+
+#debug2013-4-10 1:55:11[connector:125]User(1 hi) login
+
+#debug2013-4-10 1:58:51[connector:53]client error closed,port:#Port<0.941>
+
+
+#debug2013-4-10 1:59:10[connector:115]User has online!
+
+#debug2013-4-10 1:59:10[connector:125]User(1 hi) login
+
+#debug2013-4-10 1:59:49[connector:53]client error closed,port:#Port<0.959>
+
+
+#debug2013-4-10 2:0:4[connector:115]User has online!
+
+#debug2013-4-10 2:0:4[connector:125]User(1 hi) login
+
+#debug2013-4-10 2:0:43[connector:53]client error closed,port:#Port<0.963>
+
+

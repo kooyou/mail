@@ -16,7 +16,7 @@
 -export([init/1,waiting/2,handle_event/3,handle_sync_event/4,handle_info/3,terminate/3,code_change/4]).
 
 -include("debug.hrl").
--define(WAITINGTIME,5*1000).
+-define(WAITINGTIME,120*1000).
 -define(DELMAILTIME,7*24*60*60).%一周秒数
 %-define(WAITINGTIME,12*60*60*1000).
 %%=========================================================================

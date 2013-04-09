@@ -364,7 +364,13 @@ rev_mail(DataList) ->
     MM = Times div 1000000,
     SS = Times - MM*1000000,
     {{Y,M,D},{H,N,S}} = calendar:now_to_local_time({MM,SS,0}),
-    io:format("Mail Id:~p  Time:~p-~p-~p ~p:~p:~p  From:~s   Title:~s~n",[Id,Y,M,D,H,N,S,Sname,Title])
+    case State of
+        1 ->
+            StateStr = "read";
+        2 ->
+            StateStr = "unread"
+    end,
+    io:format("state:~s  Mail Id:~p  Time:~p-~p-~p ~p:~p:~p  From:~s   Title:~s~n",[StateStr,Id,Y,M,D,H,N,S,Sname,Title])
     end,
     DataList).
 
@@ -390,5 +396,5 @@ rev_browse_mail(DataList) ->
     MM = Timestamp div 1000000,
     SS = Timestamp - MM*1000000,
     {{Y,M,D},{H,N,S}} = calendar:now_to_local_time({MM,SS,0}),
-    io:format("Mail Id:~p  Time:~p-~p-~p ~p:~p:~p  From:~s   Title:~s  Content:~p~n",[Id,Y,M,D,H,N,S,Sname,Title,Content]).
+    io:format("Mail Id:~p  Time:~p-~p-~p ~p:~p:~p  From:~s   Title:~s  Content:~s~n",[Id,Y,M,D,H,N,S,Sname,Title,Content]).
 
