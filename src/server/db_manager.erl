@@ -58,8 +58,9 @@ handle_call({read,SqlStr},_From,State) ->
     {reply,AllRows,State};
 
 handle_call({update,SqlStr},_From,State) ->
-    mysql:fetch(?DB_NAME,SqlStr),
-    {reply,ok,State};
+    {updated,MysqlRes} = mysql:fetch(?DB_NAME,SqlStr),
+    Affected = mysql:get_result_affected_rows(MysqlRes),
+    {reply,{update,Affected},State};
 
 handle_call({read_ets,id,Key},_From,State) ->
     Reply = ets:lookup(State,Key),

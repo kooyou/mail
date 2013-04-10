@@ -98,7 +98,6 @@ wait_for_cmd(UserRecord,Pid) ->
             unread_mail(UserRecord,Pid),
             wait_for_cmd(UserRecord,Pid);
         "del" ->
-            %{MailId,_} = string:to_integer(RestStr),
             del_mail(UserRecord,Pid,RestStr),
             wait_for_cmd(UserRecord,Pid);
         "browse" ->
@@ -236,11 +235,22 @@ mail(UserRecord,_Pid) ->
     TemTitle = io:get_line("title:"),
     TemContent = io:get_line("content:"),
     RevName = string:strip(TemName,both,$\n),
+    %检验邮件内容是否合法
     Title = string:strip(TemTitle,both,$\n),
-    Content = string:strip(TemContent,both,$\n),
-    Data = [2,UserRecord#user.name,RevName,Title,Content],
-    Bin = write_pt_c:write(10201,?CMD_10201,Data),
-    gen_tcp:send(UserRecord#user.socket,Bin).
+    case util:string_is_legal(Title,20) of
+        false ->
+            io:format("Failed to send mail : Mail's title is too long!~n");
+        true ->
+            Content = string:strip(TemContent,both,$\n),
+            case util:string_is_legal(Content,100) of
+                false ->
+                    io:format("Failed to send mail : Mail's content is too long!~n");
+                true ->
+                    Data = [2,UserRecord#user.name,RevName,Title,Content],
+                    Bin = write_pt_c:write(10201,?CMD_10201,Data),
+                    gen_tcp:send(UserRecord#user.socket,Bin)
+            end
+    end.
 
 %查询所有邮件
 all_mail(UserRecord,_Pid) ->
@@ -260,7 +270,6 @@ del_mail(UserRecord,_Pid,DelStr) ->
     IntList = lists:map(fun(X) ->
                 {Int,_} = string:to_integer(X),
                 Int end, IntStrList),
-    %io:format("asdfasdf~p~n",IntList),
     lists:foreach(fun(X) ->
         SendData = [UserRecord#user.id,X],
         Bin = write_pt_c:write(10203,?CMD_10203,SendData),
@@ -333,26 +342,25 @@ rev_send_mail(DataList) ->
         ?SUCCEED ->
             io:format("Succeed to send mail!~n");
         ?FALSE ->
-            io:format("Failed to send mail!~n")
+            io:format("Failed to send mail!Please check the receiver.~n")
     end.
 
 %对收到的邮件进行处理
 rev_new_mail(DataList) ->
     io:format("You have a new mail:~n"),
-    [Id,Type,State,Times,Sname,_Uid,Title] =DataList,
+    [Id,Type,_State,Times,Sname,_Uid,Title] =DataList,
     case Type of
         1 -> io:format("system mail:~n");
         2 -> io:format("private mail:~n");
         _Other -> void
     end,
-    MM = Times div 1000000,
-    SS = Times - MM*1000000,
-    {{Y,M,D},{H,N,S}} = calendar:now_to_local_time({MM,SS,0}),
+    {{Y,M,D},{H,N,S}} = util:timestamp_to_localtime(Times),
     io:format("Mail Id:~p  Time:~p-~p-~p ~p:~p:~p  From:~s   Title:~s~n",[Id,Y,M,D,H,N,S,Sname,Title]).
 
 %对查询邮件进行处理
 rev_mail(DataList) ->
-    io:format("You have a new mail:~n"),
+    MailNum = util:list_length(DataList),
+    io:format("You have ~p mails.~n",[MailNum]),
     lists:foreach(fun(List) ->
     [Id,Type,State,Times,Sname,_Uid,Title] =List,
     case Type of
@@ -360,10 +368,7 @@ rev_mail(DataList) ->
         2 -> io:format("Private mail:~n");
         _Other -> void
     end,
-    %Time = calendar:seconds_to_time(Times),
-    MM = Times div 1000000,
-    SS = Times - MM*1000000,
-    {{Y,M,D},{H,N,S}} = calendar:now_to_local_time({MM,SS,0}),
+    {{Y,M,D},{H,N,S}} = util:timestamp_to_localtime(Times),
     case State of
         1 ->
             StateStr = "read";
@@ -379,22 +384,20 @@ rev_del_mail(DataList) ->
     [Result] = DataList,
     case Result of
         1 ->
-            io:format("succeed to del mail!~n");
+            io:format("Succeed to del mail!~n");
         2 ->
-            io:format("failed to del mail!~n")
+            io:format("Warning:failed to del mail!~n")
     end,
     void.
 
 %接收指定浏览的邮件
 rev_browse_mail(DataList) ->
-    [Id,Type,State,Timestamp,Sname,Uid,Title,Content] = DataList,
+    [Id,Type,_State,Timestamp,Sname,_Uid,Title,Content] = DataList,
     case Type of
         1 -> io:format("system mail:~n");
         2 -> io:format("private mail:~n");
         _Other -> void
     end,
-    MM = Timestamp div 1000000,
-    SS = Timestamp - MM*1000000,
-    {{Y,M,D},{H,N,S}} = calendar:now_to_local_time({MM,SS,0}),
+    {{Y,M,D},{H,N,S}} = util:timestamp_to_localtime(Timestamp),
     io:format("Mail Id:~p  Time:~p-~p-~p ~p:~p:~p  From:~s   Title:~s  Content:~s~n",[Id,Y,M,D,H,N,S,Sname,Title,Content]).
 

@@ -10,7 +10,9 @@
 -export([
     log/5,
     is_legal/4,
+    string_is_legal/2,
     unixtime/0,
+    timestamp_to_localtime/1,
     for/3,
     list_length/1]).
 %%=========================================================================
@@ -39,6 +41,7 @@ log(T,F,A,Mod,Line) ->
     %%%add to io
     io:format(Format,[Date,Mod,Line] ++ A).
 
+%检验一般的用户名和密码是否合法
 is_legal(Name,NLen,Psw,PLen) ->
      Name_Len = string:len(Name),
     if
@@ -46,11 +49,28 @@ is_legal(Name,NLen,Psw,PLen) ->
         true -> true
     end.
 
+%检验字符串是否合法
+string_is_legal(String,NLen) ->
+    StrLen = string:len(String),
+    if
+        StrLen > NLen ->
+            false;
+        true ->
+            true
+    end.
+
 
 %% 取得当前的unix时间戳
 unixtime() ->
     {M, S, _} = erlang:now(),
     M * 1000000 + S.
+
+%%unix时间戳->{{Y,M,D},{H,N,S}}
+timestamp_to_localtime(Timestamp) ->
+    MM = Timestamp div 1000000,
+    SS = Timestamp - MM*1000000,
+    MI = Timestamp - MM*1000000 - SS*1000,
+    calendar:now_to_local_time({MM,SS,MI}).
 
 
 %% for循环

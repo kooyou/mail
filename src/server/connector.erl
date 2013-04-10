@@ -156,8 +156,9 @@ mail_handle(User,Data,Bin) ->
     %查询用户是否存在
     SqlStr = io_lib:format("select id from user where name = '~s'",[Uname]),
     case db_manager:read(SqlStr) of
-        [] -> void;
+        [] -> Result = ?FALSE;
         [[Id]] -> 
+            Result = ?SUCCEED,
             Time = util:unixtime(),
             %写入数据库
             AddMailSql = io_lib:format("insert into mail values(~p,~p,~p,~p,'~s',~p,'~s','~s')",
@@ -171,8 +172,7 @@ mail_handle(User,Data,Bin) ->
     end,
     
     %应答
-    io:format("asdfasdfsad"),
-    ClientBin = write_pt:write(10201,?CMD_10201,[?SUCCEED]),
+    ClientBin = write_pt:write(10201,?CMD_10201,[Result]),
     gen_tcp:send(User#user.sock,ClientBin).
 
 
@@ -226,10 +226,15 @@ lookup_mail(User,DataList,Bin) ->
 %删除邮件
 del_mail(User,DataList,_Bin) ->
     [Uid,MailId] = DataList,
-    SqlStr = io_lib:format("delete from mail where id = ~p and uid = '~s'",[MailId,Uid]),
-    Result = db_manager:update(SqlStr),
-    io:format("mysql update result: ~p~n",[Result]),
-    SendBin = write_pt:write(10203,?CMD_10203,[1]),
+    SqlStr = io_lib:format("delete from mail where id = ~p and uid = ~p",[MailId,Uid]),
+    {update,AffectedRows} = db_manager:update(SqlStr),
+    io:format("mysql update result: ~p~n",[AffectedRows]),
+    case AffectedRows > 0 of
+        true ->%成功
+            SendBin = write_pt:write(10203,?CMD_10203,[1]);
+        false ->%失败
+            SendBin = write_pt:write(10203,?CMD_10203,[2])
+    end,
     gen_tcp:send(User#user.sock,SendBin).
 
 

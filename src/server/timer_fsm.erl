@@ -57,6 +57,7 @@ code_change(_OldVsn,StateName,State,_Extra) ->
 %%=======================私有函数==================================
 
 waiting(timeout,State) ->
+    io:format("It's time to check mails!~n"),
     time_to_del_mail(),
     {next_state,waiting,0,?WAITINGTIME}.
 
